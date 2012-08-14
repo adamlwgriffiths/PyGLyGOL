@@ -25,13 +25,10 @@ pygly.monkey_patch.patch_idle_loop()
 
 class BaseApplication( object ):
     
-    def __init__( self ):
+    def __init__( self, caption = None ):
         super( BaseApplication, self ).__init__()
 
-        self.setup()
-
-    def setup( self ):
-        self.setup_window()
+        self.setup_window( caption )
         self.setup_input()
         self.setup_ui()
         self.setup_scene_root()
@@ -39,7 +36,7 @@ class BaseApplication( object ):
         self.setup_scene()
         self.setup_events()
         
-    def setup_window( self ):
+    def setup_window( self, caption ):
         # setup our opengl requirements
         config = pyglet.gl.Config(
             depth_size = 16,
@@ -51,6 +48,7 @@ class BaseApplication( object ):
             fullscreen = False,
             width = 1024,
             height = 768,
+            caption = caption,
             resizable = True,
             config = config
             )

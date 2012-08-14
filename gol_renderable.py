@@ -12,33 +12,6 @@ from shader_generated_texture import ShaderGeneratedTexture
 class GOL_Renderable( RenderNode ):
     vertex_shader = Shader.default_vert    
     
-    moire = """
-#version 120
-
-// inputs
-uniform sampler2D tex0;
-
-void main()
-{
-    // retrieve the texture coordinate
-    vec2 c = gl_TexCoord[0].xy;
-    
-    vec2 centre = vec2(0.5, 0.5);
-    
-    vec2 distance = centre - c;
-    distance *= vec2(100.0);
-    float dist = length( distance );
-    float idist = floor( dist );
-    if ( mod( idist, 2.0 ) == 0.0 )
-    {
-        gl_FragColor = vec4( 0.0, 0.0, 0.0, 1.0 );
-    }
-    else
-    {
-        gl_FragColor = vec4( 1.0, 1.0, 1.0, 1.0 );
-    }
-}
-"""
     fragment_shader = """
 #version 120
 
@@ -204,16 +177,16 @@ void main()
         x_size, y_size = 5, 5
 
         glTexCoord2f( 0.0, 0.0 )        
-        glVertex2f(-x_size,-y_size )
+        glVertex3f(-x_size,-y_size, 0.0 )
         
         glTexCoord2f( 1.0, 0.0 )
-        glVertex2f( x_size,-y_size )
+        glVertex3f( x_size,-y_size, 0.0 )
         
         glTexCoord2f( 1.0, 1.0 )
-        glVertex2f( x_size, y_size )
+        glVertex3f( x_size, y_size, 0.0 )
         
         glTexCoord2f( 0.0, 1.0 )
-        glVertex2f(-x_size, y_size )
+        glVertex3f(-x_size, y_size, 0.0 )
         
         glEnd()
         

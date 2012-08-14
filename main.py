@@ -22,7 +22,7 @@ class Application( BaseApplication ):
     def __init__( self ):
         self.print_opengl_versions()
         
-        super( Application, self ).__init__()
+        super( Application, self ).__init__( "PyGLy - Conway's Game of Life" )
 
     def print_opengl_versions( self ):
         # get OpenGL version
@@ -39,7 +39,7 @@ class Application( BaseApplication ):
 
         # move the camera so we can see the scene
         self.camera.transform.inertial.translate(
-            [ 0.0, 0.0, 10.0 ]
+            [ 0.0, 0.0, 5.0 ]
             )
 
     def setup_ui( self ):
@@ -67,6 +67,7 @@ class Application( BaseApplication ):
         # set our gl clear colour
         glClearColor( 0.2, 0.2, 0.2, 1.0 )
 
+        # create a scene node to hold our GOL renderable
         self.gol_node = SceneNode( "GOL_Node" )
         self.scene_node.add_child( self.gol_node )
         
@@ -84,7 +85,9 @@ class Application( BaseApplication ):
             board_size = max_viewport_size
         
         self.gol = GOL_Renderable( board_size )
+        # add our renderable to the scene
         self.gol_node.add_child( self.gol )
+        # add to our list of renderables
         self.renderables.append( self.gol )
 
     def update_mouse( self, dt ):
@@ -100,7 +103,7 @@ class Application( BaseApplication ):
 
     def update_scene( self, dt ):
         # rotate the GOL board
-        self.gol_node.transform.object.rotate_y( dt )
+        self.gol_node.transform.object.rotate_y( dt * 0.3 )
         
         # add the delta to the accumulated time
         self.gol.dt += dt
