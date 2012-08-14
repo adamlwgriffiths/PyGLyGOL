@@ -20,18 +20,18 @@ from gol_renderable import GOL_Renderable
 class Application( BaseApplication ):
     
     def __init__( self ):
-        super( Application, self ).__init__()
-        
         self.print_opengl_versions()
+        
+        super( Application, self ).__init__()
 
     def print_opengl_versions( self ):
         # get OpenGL version
-        print "OpenGL version", self.window.context.get_info().get_version()        
+        print "OpenGL version", gl_info.get_version()        
         
         # get GLSL version
         plain = string_at(glGetString(GL_SHADING_LANGUAGE_VERSION)).split(' ')[0]
         major, minor = map(int, plain.split('.'))
-        version = major*100 + minor
+        version = major * 100 + minor
         print "GLSL Version", version
         
     def setup_camera( self ):
@@ -70,9 +70,19 @@ class Application( BaseApplication ):
         self.gol_node = SceneNode( "GOL_Node" )
         self.scene_node.add_child( self.gol_node )
         
+        # get the maximum viewport size
+        max_viewport_size = (c_int * 2)()
+        glGetIntegerv( GL_MAX_VIEWPORT_DIMS, max_viewport_size )
+        
+        max_viewport_size = (max_viewport_size[ 0 ], max_viewport_size[ 1 ])
+        print "Max viewport size", max_viewport_size
+        
         # make the GOL board
         # ensure it is a power of 2 for ou texture
-        board_size = (512, 512)
+        board_size = (2048, 2048)
+        if board_size > max_viewport_size:
+            board_size = max_viewport_size
+        
         self.gol = GOL_Renderable( board_size )
         self.gol_node.add_child( self.gol )
         self.renderables.append( self.gol )

@@ -50,6 +50,7 @@ class FBO_Texture( object ):
     
     def bind( self ):
         glBindFramebuffer( GL_FRAMEBUFFER, self.fbo )
+        glDrawBuffer( GL_COLOR_ATTACHMENT0 )
     
     def unbind( self ):
         glBindFramebuffer( GL_FRAMEBUFFER, 0 )

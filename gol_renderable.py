@@ -207,15 +207,12 @@ void main()
         glVertex2f(-x_size,-y_size )
         
         glTexCoord2f( 1.0, 0.0 )
-        #glTexCoord2f( self.texture.dimensions[ 0 ], 0.0 )
         glVertex2f( x_size,-y_size )
         
         glTexCoord2f( 1.0, 1.0 )
-        #glTexCoord2f( self.texture.dimensions[ 0 ], self.texture.dimensions[ 1 ] )
         glVertex2f( x_size, y_size )
         
         glTexCoord2f( 0.0, 1.0 )
-        #glTexCoord2f( 0.0, self.texture.dimensions[ 1 ] )
         glVertex2f(-x_size, y_size )
         
         glEnd()
