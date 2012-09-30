@@ -40,7 +40,9 @@ class BaseApplication( object ):
         # setup our opengl requirements
         config = pyglet.gl.Config(
             depth_size = 16,
-            double_buffer = True
+            double_buffer = True,
+            major_version = 2,
+            minor_version = 1
             )
 
         # create our window
